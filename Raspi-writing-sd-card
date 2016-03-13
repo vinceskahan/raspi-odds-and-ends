@@ -1,0 +1,17 @@
+Taken from http://elinux.org/RPi_Easy_SD_Card_Setup#Flashing_the_SD_card_using_Mac_OS_X official method 2 (commandline)
+
+Insert the SD card into the Mac SD slot
+
+See which device it mounted as:
+  df -h
+  (mine comes up as /dev/disk2s1)
+  
+Use diskutil to unmount the device:
+  sudo diskutil unmount /dev/disk2s1
+  
+Write the image to the device (note: /dev/disk2s1 above == /dev/rdisk2 below)
+  sudo dd bs=1m if=2016-02-26-raspbian-jessie-lite.img of=/dev/rdisk2
+  (if you get permission-denied, the write protect switch is set wrong on your SD card)
+  
+Eject the disk
+  sudo diskutil eject /dev/rdisk2
