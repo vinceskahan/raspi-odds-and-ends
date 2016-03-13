@@ -1,0 +1,23 @@
+Initial setup after 'dd' of clean raspbian image
+
+  login as pi
+  sudo bash
+  raspi-config
+    1. expand filesystem
+    2. change user pass for pi
+    4. advanced
+          set hostname (if desired)
+          enable ssh
+    5. internationalization
+          locale
+              pick en_US ISO-8859-1
+                  select en_US
+          timezone
+              pick US/Pacific-New
+          keyboard
+              pick generic 104-key PC
+              other
+              english(US)
+          wifi county
+              US
+  reboot
