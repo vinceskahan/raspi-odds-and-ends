@@ -31,3 +31,11 @@ Initial setup after 'dd' of clean raspbian image
               psk="mypsk"
           }
     
+  Comment out the xconsole section in /etc/rsyslog.conf
+    - this is a bug in raspbian that causes lots of nuisance syslog messages
+    - simply comment out theh bottom block since by default xconsole is not installed
+  
+
+  Install other packages typically used
+    - apt-get install -y git vim-nox lsof
+  
