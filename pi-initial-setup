@@ -39,3 +39,5 @@ Initial setup after 'dd' of clean raspbian image
   Install other packages typically used
     - apt-get install -y git vim-nox lsof
   
+  scp -r ~/.ssh over from one of the other home systems
+    - be sure to clean out known_hosts
