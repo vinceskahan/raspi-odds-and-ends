@@ -12,6 +12,7 @@ Use diskutil to unmount the device:
 Write the image to the device (note: /dev/disk2s1 above == /dev/rdisk2 below)
   sudo dd bs=1m if=2016-02-26-raspbian-jessie-lite.img of=/dev/rdisk2
   (if you get permission-denied, the write protect switch is set wrong on your SD card)
+  (you can hit control-T in the shell window to see its progress)
   
 Eject the disk
   sudo diskutil eject /dev/rdisk2
