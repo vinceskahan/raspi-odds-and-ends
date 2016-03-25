@@ -21,3 +21,13 @@ Initial setup after 'dd' of clean raspbian image
           wifi county
               US
   reboot
+  
+  
+  Further setup of wifi
+   - for some reason the default /etc/networking/interfaces with wlan0 'manual' brings up wlan0
+   - edit /etc/wpa_supplicant to add your ssid and psk ala
+          network={
+              ssid="myssid"
+              psk="mypsk"
+          }
+    
