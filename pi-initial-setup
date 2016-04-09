@@ -25,7 +25,7 @@ Initial setup after 'dd' of clean raspbian image
   
   Further setup of wifi
    - for some reason the default /etc/networking/interfaces with wlan0 'manual' brings up wlan0
-   - edit /etc/wpa_supplicant to add your ssid and psk ala
+   - edit /etc/wpa_supplicant/wpa_supplicant.conf to add your ssid and psk ala
           network={
               ssid="myssid"
               psk="mypsk"
@@ -35,9 +35,16 @@ Initial setup after 'dd' of clean raspbian image
     - this is a bug in raspbian that causes lots of nuisance syslog messages
     - simply comment out theh bottom block since by default xconsole is not installed
   
+  Take the reboot so wifi and keyboard come up ok
+  
+  Update to current (long)
+   - apt-get update
+   - apt-get upgrade -y
+
+  Take another reboot (sigh) just in case
 
   Install other packages typically used
-    - apt-get install -y git vim-nox lsof
+    - apt-get install -y git vim-nox lsof lynx
   
   scp -r ~/.ssh over from one of the other home systems
     - be sure to clean out known_hosts
