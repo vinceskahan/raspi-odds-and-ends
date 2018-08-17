@@ -23,9 +23,6 @@
 # */2 * * * * /home/pi/netmon.sh
 #
 
-# might be wise to use a ramdisk location for this 
-LOGFILE=/var/log/network.log
-
 # this is to a tmpfs partition always there on raspbian
 FLAGFILE=/run/netmon.flag
 
@@ -39,21 +36,20 @@ PATH=/sbin:/usr/sbin:$PATH
 
 NOW=`date +%c`
 
-# -- this is the monitoring loop - try to restart the nic
-#    dunno on Raspbian whether we need to reestablish routes etc.
+# -- this is the monitoring magic - try to restart the nic
 if [ -f "${FLAGFILE}" ]
 then
 	# is the nic there in the ifconfig output ?
-	if ifconfig "${NIC}" | grep -q "inet addr:" ;
+	if ip link show "${NIC}" | grep -q ",UP," ;
 	then
         	echo "wifi ok at ${NOW}" > ${FLAGFILE}
 	else
 		# nope - try to fix it
-        	logger "${0}: ${NIC} down - attempting fix " >> $LOGFILE
+            logger "${0}: ${NIC} down - attempting fix"
         	ifup --force "${NIC}"
         	OUT=$? #save exit status of last command to decide what to do next
         	if [ $OUT -eq 0 ] ; then
-                	STATE=$(ifconfig "${NIC}" | grep "inet addr:")
+                    STATE=$(ip link show "${NIC}" | grep ",UP,")
                 	logger "${0}: ${NIC} reset ok -  Current state is ${STATE}"
         	else
                	 	logger "${0}: ${NIC} reset failed - status ${OUT}"
@@ -63,7 +59,7 @@ else
 	# -- first time we see the nic up, touch a flag file
 	#    so subsequent runs know we should attempt to self-heal
 	#    if it goes away for any reason
-	if ifconfig "${NIC}" | grep -q "inet addr:" ;
+	if ip link show "${NIC}" | grep -q ",UP," ;
 	then
 		logger "${0}: touching ${FLAGFILE}"
         	echo "wifi ok at ${NOW}" > ${FLAGFILE}
